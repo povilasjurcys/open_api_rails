@@ -11,14 +11,23 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 
-
 Metrics/BlockLength:
   Exclude:
     - spec/**/*.rb
+
 Metrics/ModuleLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
   Exclude:
     - spec/**/*_spec.rb
+
 Metrics/ClassLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
   Exclude:
     - spec/**/*_spec.rb
 
@@ -44,5 +53,5 @@ AllCops:
   TargetRubyVersion: 2.7
   Exclude:
     - bin/*
-    - graphql_rails.gemspec
+    - *.gemspec
     - Rakefile
