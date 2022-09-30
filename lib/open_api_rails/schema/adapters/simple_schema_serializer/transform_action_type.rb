@@ -18,16 +18,26 @@ module OpenApiRails
             return {} if type.blank?
 
             {
-              **type_parser.open_api_json,
+              **type_open_api_json,
               **format_open_api_json
             }
           end
 
           private
 
-          delegate :type, :type_format, to: :action
-
           attr_reader :action, :schema
+
+          def type_open_api_json
+            type_parser.open_api_json
+          end
+
+          def type
+            action.type
+          end
+
+          def type_format
+            action.type_format
+          end
 
           def type_parser
             @type_parser ||= ::OpenApiRails::Model::AttributeTypeParser.new(unparsed_type: type)

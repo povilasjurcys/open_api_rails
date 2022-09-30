@@ -38,7 +38,13 @@ module OpenApiRails
           end
 
           def security_schemes
-            {}
+            {
+              bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT'
+              }
+            }
           end
         end
       end
