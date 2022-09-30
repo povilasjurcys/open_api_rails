@@ -21,9 +21,11 @@ module OpenApiRails
 
           private
 
-          delegate :request_body_arguments, to: :action, private: true
-
           attr_reader :action, :schema
+
+          def request_body_arguments
+            action.request_body_arguments
+          end
 
           def request_body_json
             {

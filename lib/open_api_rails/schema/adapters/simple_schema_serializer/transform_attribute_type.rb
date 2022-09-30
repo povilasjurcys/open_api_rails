@@ -25,9 +25,11 @@ module OpenApiRails
 
           private
 
-          delegate :type, to: :action
-
           attr_reader :action, :schema
+
+          def type
+            action.type
+          end
 
           def type_parser
             @type_parser ||= ::OpenApiRails::Model::AttributeTypeParser.new(unparsed_type: type)

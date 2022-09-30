@@ -3,6 +3,7 @@
 require 'open_api_rails/concerns/chainable_getter_setter'
 require 'open_api_rails/concerns/type_configurable'
 require 'open_api_rails/controller/argument_configuration'
+require 'open_api_rails/controller/configure_action_from_graphql'
 
 module OpenApiRails
   module Controller
@@ -24,7 +25,10 @@ module OpenApiRails
       end
 
       def as_graphql(graphql_action_name)
-        ConfigureActionFromGraphql.call(action_configuration: self, graphql_action_name: graphql_action_name)
+        ::OpenApiRails::Controller::ConfigureActionFromGraphql.call(
+          action_configuration: self,
+          graphql_action_name: graphql_action_name
+        )
       end
 
       def argument(name)

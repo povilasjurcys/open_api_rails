@@ -77,8 +77,6 @@ module OpenApiRails
           end
         end
 
-        private
-
         def routes
           schema.routes
         end

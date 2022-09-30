@@ -27,9 +27,19 @@ module OpenApiRails
 
           private
 
-          delegate :parameter_arguments, :tags, :summary, to: :action, private: true
-
           attr_reader :action, :schema
+
+          def parameter_arguments
+            action.parameter_arguments
+          end
+
+          def tags
+            action.tags
+          end
+
+          def summary
+            action.summary
+          end
 
           def responses
             schema.transform_responses.call({ action: action, schema: schema })

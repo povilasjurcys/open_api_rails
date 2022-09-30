@@ -22,8 +22,19 @@ module OpenApiRails
 
           private
 
-          delegate :success_status_code, :description, :type, to: :action, private: true
           attr_reader :action, :schema
+
+          def success_status_code
+            action.success_status_code
+          end
+
+          def description
+            action.description
+          end
+
+          def type
+            action.type
+          end
 
           def success_response
             return {} if type.blank?

@@ -23,9 +23,11 @@ module OpenApiRails
 
           private
 
-          delegate :routes, to: :schema
-
           attr_reader :schema
+
+          def routes
+            schema.routes
+          end
 
           def schemas
             routes.map(&:component_schema).reduce(:merge)

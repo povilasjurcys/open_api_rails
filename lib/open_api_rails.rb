@@ -3,7 +3,6 @@
 require 'active_support'
 require 'active_support/core_ext/string'
 require 'active_support/core_ext/enumerable'
-require 'active_support/core_ext/module/delegation'
 require "open_api_rails/version"
 require 'open_api_rails/schema'
 require 'open_api_rails/model'

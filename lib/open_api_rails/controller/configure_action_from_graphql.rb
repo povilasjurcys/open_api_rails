@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'open_api_rails/attributes/graphql_attribute_parser'
+
 module OpenApiRails
   module Controller
     # Configures OpenApiRails::Controller::Action based on GraphqlRails::Action configuration.
