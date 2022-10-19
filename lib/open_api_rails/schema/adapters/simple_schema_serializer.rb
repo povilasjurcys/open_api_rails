@@ -77,6 +77,10 @@ module OpenApiRails
           end
         end
 
+        def security_schemes
+          schema.security_schemes
+        end
+
         def routes
           schema.routes
         end

@@ -17,7 +17,7 @@ module OpenApiRails
             {
               schemas: schemas,
               requestBodies: request_bodies,
-              securitySchemes: security_schemes
+              securitySchemes: schema.security_schemes
             }
           end
 

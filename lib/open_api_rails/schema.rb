@@ -6,34 +6,28 @@ require 'open_api_rails/schema/route'
 module OpenApiRails
   # Represents OpenAPI specification
   class Schema
-    VERSION = '1.0.0'
-    CONTACT_EMAIL = 'admin@samesystem.com'
-    TITLE = 'Samesystem - OpenAPI 3.0'
-    TAGS = [].freeze
+    attr_reader :version, :title, :tags, :contact_email, :security_schemes
 
-    def initialize(server_urls:, adapter: ::OpenApiRails::Schema::Adapters::JsonApiSchemaSerializer)
+    def initialize(
+      server_urls:,
+      title:,
+      contact_email:,
+      tags: [],
+      version: '1.0.0',
+      security_schemes: {},
+      adapter: ::OpenApiRails::Schema::Adapters::JsonApiSchemaSerializer
+    )
       @server_urls = Array(server_urls)
       @adapter = adapter
+      @version = version
+      @title = title
+      @tags = tags
+      @contact_email = contact_email
+      @security_schemes = security_schemes
     end
 
     def open_api_json
       adapter.new(self).open_api_json
-    end
-
-    def tags
-      TAGS
-    end
-
-    def title
-      TITLE
-    end
-
-    def contact_email
-      CONTACT_EMAIL
-    end
-
-    def version
-      VERSION
     end
 
     def servers
@@ -47,6 +41,9 @@ module OpenApiRails
     end
 
     def routes
+      if !defined?(@routes)
+        require 'pry'; binding.pry
+      end
       @routes ||= open_api_routes.map { |route| Route.new(route) }.select(&:configured?)
     end
 
