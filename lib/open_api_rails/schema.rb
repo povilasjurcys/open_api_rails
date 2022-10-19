@@ -41,9 +41,6 @@ module OpenApiRails
     end
 
     def routes
-      if !defined?(@routes)
-        require 'pry'; binding.pry
-      end
       @routes ||= open_api_routes.map { |route| Route.new(route) }.select(&:configured?)
     end
 

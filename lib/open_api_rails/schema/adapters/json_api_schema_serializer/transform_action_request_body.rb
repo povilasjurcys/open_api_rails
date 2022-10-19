@@ -9,7 +9,6 @@ module OpenApiRails
           private
 
           def request_body_json
-            binding.pry
             {
               content: {
                 'application/json': {
