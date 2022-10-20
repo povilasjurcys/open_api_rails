@@ -49,7 +49,7 @@ module OpenApiRails
         type_name = action_configuration.nullable_inner_type_name
         enum_values = action_configuration.type_parser.open_api_model_configuration.attributes.keys
 
-        action_configuration.argument("fields[#{type_name}]').tap do |arg|
+        action_configuration.argument("fields[#{type_name}]").tap do |arg|
           arg.type('array')
           arg.items.type('string').enum(enum_values)
 
