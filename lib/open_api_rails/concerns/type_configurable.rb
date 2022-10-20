@@ -15,10 +15,13 @@ module OpenApiRails
     }.freeze
 
     TYPE_MAP = {
+      'array' => 'array',
       'date' => 'string',
       'date_time' => 'string',
+      'hash' => 'object',
       'integer' => 'number',
       'float' => 'number',
+      'object' => 'object',
       'password' => 'string',
       'string' => 'string',
       'time' => 'string'
@@ -29,7 +32,7 @@ module OpenApiRails
     end
 
     def basic_type?
-      type_name_info.basic_type?
+      type_info.basic_type?
     end
 
     def open_api_type
@@ -46,15 +49,27 @@ module OpenApiRails
       self
     end
 
-    def type_name_info
-      @type_name_info ||= ::OpenApiRails::Attributes::TypeNameInfo.new(type)
+    def property(name)
+      properties[name.to_sym] ||= ::OpenApiRails::Model::AttributeConfiguration.new(name)
+    end
+
+    def properties
+      @properties ||= {}
+    end
+
+    def items
+      @items ||= ::OpenApiRails::Model::AttributeConfiguration.new('items')
+    end
+
+    def type_info
+      @type_info ||= ::OpenApiRails::Attributes::TypeNameInfo.new(type)
     end
 
     protected
 
     def reset_type_related_data
       @type_parser = nil
-      @type_name_info = nil
+      @type_info = nil
     end
 
     def type_open_api_json

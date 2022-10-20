@@ -38,9 +38,6 @@ module OpenApiRails
           end
 
           def request_body_schema
-            require 'pry'; binding.pry
-            return properties if flatten_properties?
-
             {
               type: 'object',
               properties: properties,
@@ -58,10 +55,6 @@ module OpenApiRails
 
           def required
             request_body_arguments.reject(&:flatten?).select(&:required?).map(&:name).presence
-          end
-
-          def flatten_properties?
-            request_body_arguments.all?(&:flatten?)
           end
         end
       end

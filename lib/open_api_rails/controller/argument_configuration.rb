@@ -6,6 +6,10 @@ module OpenApiRails
   module Controller
     class ArgumentConfiguration < OpenApiRails::Attributes::BaseAttributeConfiguration
       chainable_getter_setter :location
+      chainable_getter_setter :style
+      chainable_getter_setter :explode
+      chainable_getter_setter :additional_properties
+      chainable_getter_setter :example
 
       def in_path?
         location == :path

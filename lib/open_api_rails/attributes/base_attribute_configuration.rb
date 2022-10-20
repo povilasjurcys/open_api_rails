@@ -12,6 +12,7 @@ module OpenApiRails
       chainable_getter_setter :description
       chainable_getter_setter :type_format
       chainable_getter_setter :default_value
+      chainable_getter_setter :enum
 
       attr_reader :name
 
@@ -30,7 +31,7 @@ module OpenApiRails
       def required?
         return @required if @required != nil
 
-        type_name_info.required?
+        type_info.required?
       end
 
       def open_api_json
@@ -50,7 +51,7 @@ module OpenApiRails
       end
 
       def basic_type?
-        type_name_info.basic_type?
+        type_info.basic_type?
       end
 
       private

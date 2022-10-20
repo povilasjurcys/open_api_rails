@@ -6,6 +6,9 @@ require 'open_api_rails/model/attribute_type_parser'
 module OpenApiRails
   module Model
     class AttributeConfiguration < OpenApiRails::Attributes::BaseAttributeConfiguration
+      chainable_getter_setter :additional_properties
+      chainable_getter_setter :example
+
       def type_parser
         @type_parser ||= ::OpenApiRails::Model::AttributeTypeParser.new(unparsed_type: type)
       end

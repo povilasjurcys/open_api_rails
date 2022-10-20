@@ -19,6 +19,7 @@ module OpenApiRails
         configure_description
         configure_type
         configure_arguments
+        configure_query_parameters
 
         action_configuration
       end
@@ -42,6 +43,22 @@ module OpenApiRails
 
       def configure_arguments
         graphql.attributes.each_value { configure_argument(_1) }
+      end
+
+      def configure_query_parameters
+        type_name = action_configuration.nullable_inner_type_name
+        enum_values = action_configuration.type_parser.open_api_model_configuration.attributes.keys
+
+        action_configuration.argument("fields[#{type_name}]').tap do |arg|
+          arg.type('array')
+          arg.items.type('string').enum(enum_values)
+
+          arg.description('Comma separated list of #/components/schemas/#{type_name} fields that must be returned')
+
+          arg.in_query
+          arg.style('simple')
+          arg.explode(false)
+        end
       end
 
       def configure_argument(graphql_attribute)

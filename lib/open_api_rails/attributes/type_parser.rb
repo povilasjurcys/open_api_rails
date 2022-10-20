@@ -41,8 +41,6 @@ module OpenApiRails
 
         @type_model = type_info.nullable_inner_name.safe_constantize
       end
-
-
     end
   end
 end

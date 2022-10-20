@@ -27,16 +27,13 @@ module OpenApiRails
           end
 
           def json_api_attributes
+            return properties if flatten_properties?
+
             {
               type: 'object',
-              properties: json_api_attribute_properties,
+              properties: properties,
               required: required
             }.compact
-          end
-
-          def json_api_attribute_properties
-            initial_properties = properties
-            initial_properties.keys == ['input'] ? initial_properties['input'] : initial_properties
           end
 
           def json_api_relationships
@@ -56,6 +53,10 @@ module OpenApiRails
               attributes: json_api_attributes,
               relationships: json_api_relationships
             }.transform_values(&:presence).compact
+          end
+
+          def flatten_properties?
+            request_body_arguments.all?(&:flatten?)
           end
         end
       end

@@ -48,6 +48,14 @@ module OpenApiRails
             parameter.required?
           end
 
+          def basic_type?
+            type_info.basic_type?
+          end
+
+          def type_info
+            type_parser.type_info
+          end
+
           def type_parser
             @type_parser ||= parameter.type_parser
           end

@@ -5,7 +5,7 @@ module OpenApiRails
     # Parses graphql-style type expression and returns various info related to it.
     # Copy-pasted from GraphqlRails::Attributes::TypeNameInfo.
     class TypeNameInfo
-      BASIC_TYPES = %w[string integer number boolean].freeze
+      BASIC_TYPES = %w[string integer number boolean object array].freeze
 
       attr_reader :name
 

@@ -24,17 +24,17 @@ module OpenApiRails
       end
 
       def basic_type?
-        type_name_info.basic_type?
+        type_info.basic_type?
       end
 
       private
 
       def nullable_type
-        @nullable_type ||= type_name_info.nullable_inner_name
+        @nullable_type ||= type_info.nullable_inner_name
       end
 
-      def type_name_info
-        @type_name_info ||= OpenApiRails::Attributes::TypeNameInfo.new(graphql_type)
+      def type_info
+        @type_info ||= OpenApiRails::Attributes::TypeNameInfo.new(graphql_type)
       end
 
       def graphql_type

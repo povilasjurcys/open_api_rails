@@ -35,12 +35,6 @@ module OpenApiRails
         type_info.basic_type?
       end
 
-      private
-
-      def model_ref_open_api_json
-        { :$ref => "#/components/requestBodies/#{open_api_model_configuration.name}" }
-      end
-
       def open_api_model_configuration
         @open_api_model_configuration ||=
           if open_api_inner_type?
@@ -50,6 +44,12 @@ module OpenApiRails
           else
             raise "Unknown type: #{unparsed_type.inspect}"
           end
+      end
+
+      private
+
+      def model_ref_open_api_json
+        { :$ref => "#/components/requestBodies/#{open_api_model_configuration.name}" }
       end
 
       def graphql_model_open_api
