@@ -17,7 +17,7 @@ module OpenApiRails
       chainable_getter_setter :tags
       chainable_getter_setter :type_format
 
-      attr_reader :name, :arguments
+      attr_reader :name, :arguments, :graphql_action_name
 
       def initialize(name)
         @name = name
@@ -25,6 +25,8 @@ module OpenApiRails
       end
 
       def as_graphql(graphql_action_name)
+        @graphql_action_name = graphql_action_name
+
         ::OpenApiRails::Controller::ConfigureActionFromGraphql.call(
           action_configuration: self,
           graphql_action_name: graphql_action_name

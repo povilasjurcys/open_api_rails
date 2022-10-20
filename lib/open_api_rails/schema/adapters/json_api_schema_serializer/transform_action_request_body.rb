@@ -31,7 +31,7 @@ module OpenApiRails
               type: 'object',
               properties: json_api_attribute_properties,
               required: required
-            }
+            }.compact
           end
 
           def json_api_attribute_properties

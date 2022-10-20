@@ -6,7 +6,14 @@ module OpenApiRails
   module Controller
     # Configures OpenApiRails::Controller::Action based on GraphqlRails::Action configuration.
     class ConfigureActionFromGraphql
-      method_object %i[action_configuration! graphql_action_name!]
+      def self.call(**kwargs)
+        new(**kwargs).call
+      end
+
+      def initialize(action_configuration:, graphql_action_name:)
+        @action_configuration = action_configuration
+        @graphql_action_name = graphql_action_name
+      end
 
       def call
         configure_description
@@ -17,6 +24,8 @@ module OpenApiRails
       end
 
       private
+
+      attr_reader :action_configuration, :graphql_action_name
 
       def configure_description
         description = graphql.description

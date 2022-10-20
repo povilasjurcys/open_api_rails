@@ -19,6 +19,14 @@ module OpenApiRails
         location == :query
       end
 
+      def flatten
+        @flatten = true
+      end
+
+      def flatten?
+        @flatten || false
+      end
+
       def in_request_body?
         location == :request_body
       end
@@ -59,6 +67,10 @@ module OpenApiRails
           schema: schema,
           required: required? || type_parser.type_info.required?
         }.compact
+      end
+
+      def property_schema_json
+        flatten? ? schema : { name => schema }
       end
 
       def schema
