@@ -1,0 +1,18 @@
+create:
+  parameters:
+  - name: "<%= action.fieldset_parameter.name %>"
+    in: query
+    schema:
+      example: id,token
+  - name: "ctx_token"
+    in: path
+    schema:
+      example: 'c1'
+  requestBody:
+    content:
+      application/json:
+        example:
+          data:
+            attributes:
+              email: john.doe@example.com
+              password: password123

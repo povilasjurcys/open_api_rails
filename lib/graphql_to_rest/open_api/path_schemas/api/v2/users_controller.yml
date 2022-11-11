@@ -1,0 +1,18 @@
+create:
+  parameters:
+  - name: "<%= action.fieldset_parameter.name %>"
+    in: query
+    schema:
+      example: "id,firstName,lastName"
+  requestBody:
+    content:
+      application/json:
+        example:
+          data:
+            attributes:
+              address1: "example street 1"
+              email: "john.doe@example.com"
+              civilNr: "123456789"
+              civilNrCountry: "dk"
+              firstName: "John"
+              lastName: "Doe"

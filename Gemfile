@@ -2,5 +2,5 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in open_api_rails.gemspec
+# Specify your gem's dependencies in graphql_to_rest.gemspec
 gemspec

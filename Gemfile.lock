@@ -1,8 +1,10 @@
 PATH
   remote: .
   specs:
-    open_api_rails (0.1.0)
+    graphql_to_rest (0.1.0)
       activesupport
+      attr_extras (>= 6.2.0)
+      graphql
 
 GEM
   remote: https://rubygems.org/
@@ -13,10 +15,12 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     ast (2.4.2)
+    attr_extras (6.2.5)
     byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
     diff-lcs (1.5.0)
+    graphql (1.13.15)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     json (2.5.1)
@@ -71,7 +75,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  open_api_rails!
+  graphql_to_rest!
   pry-byebug
   rake
   rspec

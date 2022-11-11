@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "open_api_rails"
+require "graphql_to_rest"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
