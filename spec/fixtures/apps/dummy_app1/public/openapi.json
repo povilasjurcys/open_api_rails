@@ -1,0 +1,136 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Dummy - OpenAPI 3.0",
+    "contact": {
+      "email": "dummyapp1-admin@example.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "tags": [
+    "dummy",
+    "oas"
+  ],
+  "security": [
+    {
+      "Bearer": [
+
+      ]
+    }
+  ],
+  "paths": {
+    "/api/v1/users": {
+      "post": {
+        "parameters": [
+          {
+            "in": "query",
+            "style": "simple",
+            "explode": false,
+            "required": false,
+            "name": "fields[User]",
+            "description": "Comma separated list of #/components/schemas/User fields that must be returned",
+            "schema": {
+              "items": {
+                "type": "string",
+                "enum": [
+                  "email",
+                  "fullName",
+                  "id"
+                ]
+              },
+              "type": "array",
+              "default": "id,email"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "attributes": {
+                        "$ref": "#/components/requestBodies/UserCreateInputType"
+                      }
+                    },
+                    "required": [
+                      "attributes"
+                    ]
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "related": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "attributes": {
+                          "$ref": "#/components/schemas/User"
+                        }
+                      },
+                      "required": [
+                        "attributes"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "requestBodies": {
+    }
+  }
+}

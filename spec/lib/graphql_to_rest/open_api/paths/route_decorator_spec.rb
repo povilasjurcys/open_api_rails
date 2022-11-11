@@ -6,7 +6,7 @@ RSpec.describe GraphqlToRest::OpenApi::Paths::RouteDecorator do
     subject(:route_decorator) { described_class.new(rails_route: rails_route) }
 
     let(:rails_route) do
-      Rails.application.routes.routes.detect { _1.path.spec.to_s.starts_with?('/api/v2/:ctx_token/login') }
+      rails_route_double(:post, '/api/v1/users(.:format)', "users#create")
     end
 
     describe '#input_type' do

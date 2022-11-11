@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'graphql_to_rest/open_api/paths'
-require 'graphql_to_rest/open_api/graphql_to_components_schema'
-require 'graphql_to_rest/open_api/graphql_to_components_request_body'
 
 module GraphqlToRest
   module OpenApi
@@ -10,13 +8,14 @@ module GraphqlToRest
     class Schema
       OPENAPI_VERSION = '3.0.2'
 
-      attr_reader :tags, :servers, :info, :security_schemes
+      attr_reader :tags, :servers, :info, :security_schemes, :graphql_schema
 
-      def initialize(tags:, servers:, info:, security_schemes:)
+      def initialize(tags: [], servers: [], info: {}, security_schemes: [], graphql_schema:)
         @tags = tags
         @servers = servers
         @info = info
         @security_schemes = security_schemes
+        @graphql_schema = graphql_schema
       end
 
       def as_json
@@ -33,8 +32,7 @@ module GraphqlToRest
 
       def paths
         rails_api_routes
-          .map { |rails_route| Paths::RouteDecorator.new(rails_route: rails_route) }
-          .map { |decorated_route| Paths::RouteToPathSchema.call(route: decorated_route) }
+          .map { route_to_path_schema(_1) }
           .reduce(:deep_merge)
       end
 
@@ -53,35 +51,37 @@ module GraphqlToRest
       end
 
       def components_schemas
-        {
-          **components_schema_for(::Graphql::Users::UserDecorator),
-          **components_schema_for(::Graphql::Authentication::UserSessionDecorator),
-          **components_schema_for(::Types::CountryEnum),
-          **components_schema_for(::Types::CivilStateEnum),
-          **components_schema_for(::Types::GenderEnum),
-          **components_schema_for(::Types::Period)
-        }
+        {}
       end
 
       def components_request_bodies
-        {
-          **components_request_body_for(::Graphql::Users::CreateUser),
-          **components_request_body_for(Types::SignInUser::AuthProviderInput),
-          **components_request_body_for(Types::ExtraFieldInputType)
-        }
+        {}
       end
 
       private
+
+      def route_to_path_schema(route)
+        decorated_route = Paths::RouteDecorator.new(
+          rails_route: route,
+          graphql_schema: graphql_schema
+        )
+
+        Paths::RouteToPathSchema.call(route: decorated_route)
+      end
 
       def server_urls
         @server_urls ||= servers.map { _1[:url] }
       end
 
       def rails_api_routes
-        Rails.application.routes.routes.select do |route|
+        all_rails_routes.select do |route|
           route_url = route.path.spec.to_s
           server_urls.any? { |prefix| route_url.start_with?(prefix) }
         end
+      end
+
+      def all_rails_routes
+        Rails.application.routes.routes
       end
 
       def components_schema_for(type)

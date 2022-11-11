@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activesupport'
   spec.add_dependency 'attr_extras', '>= 6.2.0'
   spec.add_dependency 'graphql'
+  spec.add_dependency 'rails'
 
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake'

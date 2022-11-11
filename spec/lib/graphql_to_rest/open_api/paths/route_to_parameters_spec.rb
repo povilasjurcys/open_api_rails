@@ -5,7 +5,7 @@ RSpec.describe GraphqlToRest::OpenApi::Paths::RouteToParameters do
   describe '.call' do
     subject(:call) { described_class.call(route: route) }
 
-    let(:route) { OpenApi::Paths::RouteDecorator.new(rails_route: rails_route) }
+    let(:route) { GraphqlToRest::OpenApi::Paths::RouteDecorator.new(rails_route: rails_route) }
 
     let(:rails_route) do
       Rails.application.routes.routes.detect { _1.path.spec.to_s.starts_with?('/api/v2/:ctx_token/login') }

@@ -7,7 +7,10 @@ module GraphqlToRest
       class RouteDecorator
         PATH_PARAM_REGEXP = %r{:[^/]+}.freeze
 
-        rattr_initialize %i[rails_route!]
+        def initialize(rails_route:, graphql_schema:)
+          @rails_route = rails_route
+          @graphql_schema = graphql_schema
+        end
 
         def input_type
           nesting_keys = action_config.graphql_input_type_path.map(&:to_s)
@@ -57,6 +60,8 @@ module GraphqlToRest
 
         private
 
+        attr_reader :rails_route, :graphql_schema
+
         def graphql_schema_action
           (queries[graphql_action] || mutations[graphql_action])
         end
@@ -66,10 +71,6 @@ module GraphqlToRest
             rails_path = rails_route.path.spec.to_s
             rails_path.sub(%r{$/api/v\d}, '').sub('(.:format)', '')
           end
-        end
-
-        def graphql_schema
-          @graphql_schema ||= GraphqlRouter.graphql_schema(:web)
         end
 
         def mutations

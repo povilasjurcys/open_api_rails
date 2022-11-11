@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails'
+
 module GraphqlToRest
   module OpenApi
     module Paths
@@ -53,10 +55,7 @@ module GraphqlToRest
         end
 
         def file_path
-          Rails.root.join(
-            'lib/open_api/path_schemas',
-            "#{route.controller_class.name.underscore}.yml"
-          )
+          OpenApi.configuration.path_schemas_dir.join("#{route.controller_class.name.underscore}.yml")
         end
       end
     end

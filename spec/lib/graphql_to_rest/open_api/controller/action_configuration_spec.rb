@@ -4,7 +4,7 @@
 RSpec.describe GraphqlToRest::OpenApi::Controller::ActionConfiguration do
   subject(:action_configuration) { described_class.new(controller_config: controller_config) }
 
-  let(:controller_config) { OpenApi::Controller::ControllerConfiguration.new }
+  let(:controller_config) { GraphqlToRest::OpenApi::Controller::ControllerConfiguration.new }
 
   describe '#query_parameter' do
     subject(:query_parameter) { action_configuration.query_parameter(name) }
